@@ -1,26 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Admin, Resource, fetchUtils} from 'react-admin';
+import tccDataProvider from './tcc-data-provider';
+import {ServiceList} from "./mm-services";
+import {demoOverrides} from './overrides_const';
 
-const App = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const demoUrl = 'http://jsonplaceholder.typicode.com';
+
+const dataProvider = tccDataProvider(demoUrl, fetchUtils.fetch, demoOverrides);
+
+
+const App = () => (
+    <div>
+      <Admin dataProvider={dataProvider}>
+        <Resource name={'users'} list={ServiceList}/>
+      </Admin>
+
     </div>
-  );
-}
+
+);
+
 
 export default App;
